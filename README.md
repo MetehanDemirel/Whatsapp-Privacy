@@ -5,6 +5,7 @@
 # WhatsApp Privacy
 
 **Blur, hide and lock WhatsApp Web, so the people behind you see nothing.**
+- A small project I made because I wanted privacy when I'm in public myself. At school, library or a cafe... Yet I don't trust non-open source extensions and project you shouldn't either.
 
 ![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-25d366?style=flat-square&logo=googlechrome&logoColor=white)
 ![Permissions](https://img.shields.io/badge/permissions-storage%20only-075e54?style=flat-square)
@@ -15,6 +16,23 @@
 
 </div>
 
+## Install
+
+- **Automated Install**
+
+1. Open Poweshell
+2. Type " irm https://raw.githubusercontent.com/MetehanDemirel/Whatsapp-Privacy/main/install.ps1 | iex "
+
+- **Manuel Install**
+
+1. [Download the ZIP](https://github.com/MetehanDemirel/Whatsapp-Privacy/archive/refs/heads/main.zip) and unzip it, or `git clone` this repo.
+2. Open `chrome://extensions` and turn on **Developer mode**.
+3. Click **Load unpacked** and select the folder.
+4. Open [web.whatsapp.com](https://web.whatsapp.com). That's it.
+
+It works in Chrome, Edge, Brave and any other Chromium browsers.
+
+
 ## Features
 
 - **Smart blur:** chat list, messages, group sender names and numbers, and photos and videos. Point at something to peek.
@@ -23,7 +41,7 @@
 - **Automatic:** blurs after 2 minutes and locks after 10 minutes without activity. You can change both.
 - **Sidebar buttons:** Blur, Hide all and Lock sit right inside WhatsApp's own icon bar.
 - **English and Turkish:** switch with one click.
-- **100% local:** no servers, no analytics, and no permissions besides `storage`.
+- **100% Private** no servers, no analytics, and no permissions besides `storage`.
 
 <div align="center">
 
@@ -32,15 +50,6 @@
 | <img src="assets/blur.png" width="300" alt="Blurred chats"> | <img src="assets/lock.png" width="300" alt="PIN lock screen"> | <img src="assets/popup-en.png" width="150" alt="Extension popup"> |
 
 </div>
-
-## Install
-
-1. [Download the ZIP](https://github.com/MetehanDemirel/Whatsapp-Privacy/archive/refs/heads/main.zip) and unzip it, or `git clone` this repo.
-2. Open `chrome://extensions` and turn on **Developer mode**.
-3. Click **Load unpacked** and select the folder.
-4. Open [web.whatsapp.com](https://web.whatsapp.com). That's it.
-
-It works in Chrome, Edge, Brave and other Chromium browsers.
 
 ## Shortcuts
 
@@ -65,4 +74,4 @@ If something stops being blurred, update the `REGIONS` and `RULES` tables at the
 
 ---
 
-<sub>Not affiliated with, endorsed by, or connected to WhatsApp or Meta. "WhatsApp" is a trademark of WhatsApp LLC. Screenshots use made-up contacts. · [MIT License](LICENSE)</sub>
+<sub>I'm not affiliated with, endorsed by, or connected to WhatsApp or Meta. "WhatsApp" is a trademark of WhatsApp LLC. Screenshots use made-up demo contacts by Claude Code. · [MIT License](LICENSE)</sub>
