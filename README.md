@@ -21,7 +21,7 @@
 - **Automated Install**
 
 1. Open Poweshell
-2. Type " irm https://raw.githubusercontent.com/MetehanDemirel/Whatsapp-Privacy/main/install.ps1 | iex "
+2. Type ` irm https://raw.githubusercontent.com/MetehanDemirel/Whatsapp-Privacy/main/install.ps1 | iex `
 
 - **Manuel Install**
 
