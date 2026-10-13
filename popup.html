@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WhatsApp Privacy</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Text comes from WPG.STRINGS: data-i18n sets the text, data-i18n-attr="attr:key;attr:key" sets attributes. -->
+  <header class="top">
+    <img src="icons/32.png" width="24" height="24" alt="">
+    <h1>WhatsApp Privacy</h1>
+    <div class="lang" role="group" data-i18n-attr="aria-label:language">
+      <button type="button" data-lang="en" aria-label="English" aria-pressed="true">EN</button>
+      <button type="button" data-lang="tr" aria-label="Türkçe" aria-pressed="false">TR</button>
+    </div>
+  </header>
+
+  <!-- Shown instead of the settings while a PIN is set and not yet entered. -->
+  <section id="gate" class="gate" hidden>
+    <div class="gate-icon" data-icon="lock"></div>
+    <h2 data-i18n="settingsLocked"></h2>
+    <p class="muted" data-i18n="settingsLockedHint"></p>
+    <form id="gateForm">
+      <input type="password" id="gatePin" inputmode="numeric" autocomplete="off" maxlength="64" placeholder="PIN" aria-label="PIN">
+      <button type="submit" class="btn primary" data-i18n="unlock"></button>
+    </form>
+    <p class="msg error" id="gateMsg" role="status" aria-live="polite"></p>
+    <button type="button" class="btn link" id="gateLock" data-i18n="lockWhatsApp"></button>
+  </section>
+
+  <main id="main" hidden>
+  <div class="actions" role="group" data-i18n-attr="aria-label:quickActions">
+    <button type="button" class="action" id="act-blur" data-cmd="toggle-blur" aria-pressed="true">
+      <span class="ico" data-icon="blur"></span><span class="name"></span><kbd></kbd>
+    </button>
+    <button type="button" class="action" id="act-hide" data-cmd="hide-all" aria-pressed="false">
+      <span class="ico" data-icon="hide"></span><span class="name" data-i18n="hideAll"></span><kbd></kbd>
+    </button>
+    <button type="button" class="action" id="act-lock" data-cmd="lock-now">
+      <span class="ico" data-icon="lock"></span><span class="name" data-i18n="lock"></span><kbd></kbd>
+    </button>
+  </div>
+
+  <div class="tabs" role="tablist" data-i18n-attr="aria-label:settings">
+    <button type="button" role="tab" id="tab-blur" aria-controls="panel-blur" aria-selected="true" data-i18n="tabBlur"></button>
+    <button type="button" role="tab" id="tab-lock" aria-controls="panel-lock" aria-selected="false" tabindex="-1" data-i18n="tabLock"></button>
+    <button type="button" role="tab" id="tab-more" aria-controls="panel-more" aria-selected="false" tabindex="-1" data-i18n="tabMore"></button>
+  </div>
+
+  <!-- Blur -->
+  <section role="tabpanel" id="panel-blur" aria-labelledby="tab-blur" class="panel">
+    <div id="areas" class="rows"></div>
+
+    <div class="field">
+      <span class="field-label" id="strength-label" data-i18n="strength"></span>
+      <div class="segmented" role="radiogroup" aria-labelledby="strength-label">
+        <label><input type="radio" name="strength" value="low"><span data-i18n="low"></span></label>
+        <label><input type="radio" name="strength" value="medium"><span data-i18n="medium"></span></label>
+        <label><input type="radio" name="strength" value="high"><span data-i18n="high"></span></label>
+      </div>
+    </div>
+
+    <div class="rows">
+      <label class="row">
+        <span class="txt"><strong data-i18n="reveal"></strong><small data-i18n="revealHint"></small></span>
+        <input type="checkbox" role="switch" class="switch" id="reveal">
+      </label>
+    </div>
+  </section>
+
+  <!-- Auto-lock -->
+  <section role="tabpanel" id="panel-lock" aria-labelledby="tab-lock" class="panel" hidden>
+    <div class="rows">
+      <div class="row">
+        <label class="txt" for="autoBlurOn"><strong data-i18n="autoBlur"></strong><small data-i18n="autoBlurHint"></small></label>
+        <select id="autoBlurMin" data-i18n-attr="aria-label:blurAfter" data-minutes="1,2,5,10,15"></select>
+        <input type="checkbox" role="switch" class="switch" id="autoBlurOn">
+      </div>
+      <div class="row">
+        <label class="txt" for="autoLockOn"><strong data-i18n="autoLock"></strong><small data-i18n="autoLockHint"></small></label>
+        <select id="autoLockMin" data-i18n-attr="aria-label:lockAfter" data-minutes="5,10,15,30,60"></select>
+        <input type="checkbox" role="switch" class="switch" id="autoLockOn">
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="field-label" data-i18n="pin"></span>
+      <p class="muted" id="pinState"></p>
+      <form class="pin-form" id="pinForm">
+        <input type="password" id="pin1" autocomplete="new-password" maxlength="64" data-i18n-attr="placeholder:newPin;aria-label:newPin">
+        <input type="password" id="pin2" autocomplete="new-password" maxlength="64" data-i18n-attr="placeholder:repeatPin;aria-label:repeatPin">
+        <button type="submit" class="btn primary" data-i18n="save"></button>
+      </form>
+      <button type="button" class="btn link danger" id="removePin" data-i18n="removePin"></button>
+      <p class="msg" id="pinMsg" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- More -->
+  <section role="tabpanel" id="panel-more" aria-labelledby="tab-more" class="panel" hidden>
+    <div class="rows">
+      <label class="row">
+        <span class="txt"><strong data-i18n="dock"></strong><small data-i18n="dockHint"></small></span>
+        <input type="checkbox" role="switch" class="switch" id="dock">
+      </label>
+    </div>
+
+    <div class="field">
+      <span class="field-label" data-i18n="shortcuts"></span>
+      <ul class="keys" id="keys"></ul>
+      <button type="button" class="btn link" id="editKeys" data-i18n="changeShortcuts"></button>
+    </div>
+
+    <div class="field">
+      <button type="button" class="btn link danger" id="reset" data-i18n="reset"></button>
+      <p class="muted small" data-i18n="note"></p>
+    </div>
+  </section>
+  </main>
+
+  <script src="common.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

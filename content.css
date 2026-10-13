@@ -1,0 +1,250 @@
+/* Static page styles. The per-area blur rules are generated in content.js. */
+
+/* Hide everything / auto-blur: blurs the page itself, needs no WhatsApp selectors. */
+html.wpg-curtain body > :not(.wpg-ui) {
+  filter: blur(20px) !important;
+  transition: filter 0.2s ease;
+}
+
+html.wpg-locked body > :not(.wpg-ui) {
+  filter: blur(32px) !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* Theme: matches WhatsApp's light and dark colours. */
+.wpg-ui {
+  --wpg-bg: #ffffff;
+  --wpg-fg: #111b21;
+  --wpg-muted: #667781;
+  --wpg-icon: #54656f;
+  --wpg-hover: rgba(11, 20, 26, 0.08);
+  --wpg-accent: #00a884;
+  --wpg-accent-soft: rgba(0, 168, 132, 0.14);
+  --wpg-line: rgba(11, 20, 26, 0.12);
+  --wpg-error: #d32f2f;
+  --wpg-ring: #1a73e8;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* content.js sets .wpg-dark from WhatsApp's actual background colour. */
+html.wpg-dark .wpg-ui {
+  --wpg-bg: #202c33;
+  --wpg-fg: #e9edef;
+  --wpg-muted: #8696a0;
+  --wpg-icon: #aebac1;
+  --wpg-hover: rgba(233, 237, 239, 0.1);
+  --wpg-accent: #00a884;
+  --wpg-accent-soft: rgba(0, 168, 132, 0.2);
+  --wpg-line: rgba(233, 237, 239, 0.12);
+  --wpg-error: #f15c6d;
+  --wpg-ring: #8ab4f8;
+}
+
+/* The lock screen and the "hidden" banner always use the dark green brand theme. */
+html .wpg-ui.wpg-lock,
+html .wpg-ui.wpg-banner {
+  --wpg-bg: #12302a;
+  --wpg-fg: #e9f5f1;
+  --wpg-muted: #8fb5aa;
+  --wpg-accent: #25d366;
+  --wpg-on-accent: #062b22;
+  --wpg-accent-soft: rgba(37, 211, 102, 0.16);
+  --wpg-line: #1f4a41;
+  --wpg-error: #ff6b6b;
+  --wpg-ring: #25d366;
+}
+
+.wpg-ui *,
+.wpg-ui *::before,
+.wpg-ui *::after {
+  box-sizing: border-box;
+}
+
+.wpg-ui :focus-visible,
+.wpg-ui:focus-visible {
+  outline: 2px solid var(--wpg-ring) !important;
+  outline-offset: 2px;
+}
+
+/* ---- Sidebar dock ---- */
+.wpg-dock {
+  position: fixed;
+  z-index: 2147483640;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding-top: 10px;
+}
+
+.wpg-dock::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 28px;
+  height: 1px;
+  transform: translateX(-50%);
+  background: var(--wpg-line);
+}
+
+.wpg-dock-float {
+  left: 12px;
+  bottom: 96px;
+  padding: 8px 6px;
+  border-radius: 24px;
+  background: var(--wpg-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+}
+
+.wpg-dock-float::before {
+  display: none;
+}
+
+.wpg-dock-btn {
+  all: unset;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--wpg-icon);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.wpg-dock-btn:hover {
+  background: var(--wpg-hover);
+}
+
+.wpg-dock-btn[aria-pressed="true"] {
+  color: var(--wpg-accent);
+  background: var(--wpg-accent-soft);
+}
+
+/* ---- "Everything is hidden" pill ---- */
+.wpg-banner {
+  all: unset;
+  position: fixed;
+  z-index: 2147483641;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--wpg-bg);
+  color: var(--wpg-fg);
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.wpg-banner svg {
+  color: var(--wpg-accent);
+}
+
+/* ---- Lock ---- */
+.wpg-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(4, 30, 25, 0.55);
+}
+
+.wpg-lock .wpg-card {
+  width: min(340px, 100%);
+  padding: 28px 24px 24px;
+  border-radius: 18px;
+  border: 1px solid var(--wpg-line);
+  background: var(--wpg-bg);
+  color: var(--wpg-fg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  text-align: center;
+}
+
+.wpg-lock-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  color: var(--wpg-on-accent);
+  background: var(--wpg-accent);
+}
+
+.wpg-lock h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--wpg-fg);
+}
+
+.wpg-lock p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--wpg-muted);
+}
+
+.wpg-lock .wpg-msg {
+  color: var(--wpg-error);
+}
+
+.wpg-lock .wpg-msg:empty {
+  display: none;
+}
+
+.wpg-input {
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0.25em;
+  border: 1px solid var(--wpg-line);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--wpg-fg);
+}
+
+.wpg-input:focus {
+  border-color: var(--wpg-accent);
+  outline: none;
+}
+
+.wpg-btn {
+  all: unset;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--wpg-accent);
+  color: var(--wpg-on-accent);
+  font-size: 15px;
+  font-weight: bold;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
+
+.wpg-btn:hover {
+  filter: brightness(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wpg-ui,
+  .wpg-ui *,
+  html.wpg-curtain body > * {
+    transition: none !important;
+  }
+}

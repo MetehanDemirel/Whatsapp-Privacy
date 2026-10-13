@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "WhatsApp Privacy",
+  "short_name": "WA Privacy",
+  "version": "2.0.0",
+  "description": "Blur chats, messages and photos on WhatsApp Web, with auto-blur and auto-lock. Works 100% locally.",
+  "permissions": ["storage"],
+  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "WhatsApp Privacy",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "content_scripts": [
+    {
+      "matches": ["https://web.whatsapp.com/*"],
+      "js": ["common.js", "content.js"],
+      "css": ["content.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "commands": {
+    "toggle-blur": {
+      "suggested_key": { "default": "Alt+B" },
+      "description": "Turn blur on or off"
+    },
+    "hide-all": {
+      "suggested_key": { "default": "Alt+Q" },
+      "description": "Hide everything"
+    },
+    "lock-now": {
+      "suggested_key": { "default": "Alt+L" },
+      "description": "Lock WhatsApp Web"
+    }
+  }
+}
